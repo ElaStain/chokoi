@@ -1,18 +1,9 @@
 services:
+  db:
+    image: postgres:15
+    container_name: chokoi_db
 
-  streamlit:
-
-    build: ./apps/chokoi_app
-
-    ports:
-      - "8501:8501"
-
-    depends_on:
-      - postgres
-
-  postgres:
-
-    image: postgres:16
+    restart: always
 
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -22,7 +13,33 @@ services:
     ports:
       - "5432:5432"
 
-  spark:
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-    image: bitnami/spark:latest
+  app:
+    build:
+      context: ./apps/chokoi_app
+      dockerfile: Dockerfile
 
+    container_name: chokoi_streamlit
+
+    restart: always
+
+    ports:
+      - "8501:8501"
+
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+
+    depends_on:
+      - db
+
+    volumes:
+      - ./apps/chokoi_app:/app
+
+volumes:
+  postgres_data:
