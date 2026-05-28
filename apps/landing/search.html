@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CHOKOI · Buscador de Marcas Mexicanas · Cacao y chocolate</title>
+  <!-- Tailwind CSS + Font Awesome + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    /* Paleta Talavera:
+       #B6BBF0 (lavanda suave)
+       #9C9A7D (verde oliva / terroso)
+       #292E70 (azul profundo)
+       #EFCD9D (beige cálido / canela)
+    */
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: linear-gradient(145deg, #FDF9F2 0%, #FEF5E3 100%);
+      scroll-behavior: smooth;
+    }
+    .font-serif-display {
+      font-family: 'Playfair Display', serif;
+    }
+    .bg-talavera-profundo { background-color: #292E70; }
+    .bg-talavera-canela { background-color: #EFCD9D; }
+    .text-talavera-profundo { color: #292E70; }
+    .text-talavera-terroso { color: #9C9A7D; }
+    .border-talavera-lavanda { border-color: #B6BBF0; }
+    .shadow-google {
+      box-shadow: 0 1px 6px rgba(32,33,36,0.12), 0 1px 4px rgba(32,33,36,0.08);
+    }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #B6BBF0, 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .card-marca {
+      transition: all 0.2s ease;
+      border-left: 4px solid #EFCD9D;
+    }
+    .card-marca:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -12px rgba(41,46,112,0.15);
+      border-left-color: #292E70;
+    }
+    .btn-filtro-active {
+      background-color: #292E70;
+      color: white;
+      border-color: #292E70;
+    }
+    .badge-mexicana {
+      background-color: #9C9A7D;
+      color: white;
+    }
+    .badge-internacional {
+      background-color: #B6BBF0;
+      color: #292E70;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header con navegación minimalista (similar a Google) -->
+  <header class="bg-white/80 backdrop-blur-sm border-b border-[#EFCD9D]/30 sticky top-0 z-50">
+    <div class="container mx-auto px-5 md:px-12 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-chocolate-bar text-[#292E70] text-2xl"></i>
+        <a href="#" class="text-2xl font-bold font-serif-display text-[#292E70]">CHOKOI</a>
+        <span class="text-xs bg-[#EFCD9D] text-[#292E70] px-2 py-0.5 rounded-full ml-1">buscador</span>
+      </div>
+      <div class="flex gap-4 text-sm">
+        <a href="#" class="text-gray-600 hover:text-[#292E70] transition"><i class="fas fa-home mr-1"></i> Inicio</a>
+        <a href="#" class="text-gray-600 hover:text-[#292E70] transition"><i class="fas fa-chart-line mr-1"></i> Dashboard</a>
+        <a href="#" class="text-gray-600 hover:text-[#292E70] transition"><i class="fas fa-leaf mr-1"></i> Ecosistema</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero buscador estilo Google -->
+  <div class="container mx-auto px-5 md:px-12 py-12 md:py-16 max-w-5xl">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl md:text-6xl font-bold font-serif-display text-[#292E70] mb-2">CHOKOI</h1>
+      <p class="text-xl md:text-2xl text-[#9C9A7D] font-medium">Marcas Mexicanas</p>
+      <div class="h-1 w-20 bg-[#EFCD9D] mx-auto mt-3 rounded-full"></div>
+    </div>
+
+    <!-- Barra de búsqueda principal (estilo Google) -->
+    <div class="max-w-3xl mx-auto mb-8">
+      <div class="relative">
+        <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+        <input type="text" id="searchInput" placeholder="Ingresa el producto aquí (ej: artesanal, Chiapas, bean to bar, alto cacao)" 
+               class="w-full pl-12 pr-5 py-4 text-lg border border-gray-200 rounded-full shadow-google search-input bg-white transition-all focus:shadow-md">
+        <button id="clearSearch" class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#292E70] hidden">
+          <i class="fas fa-times-circle"></i>
+        </button>
+      </div>
+      <div class="flex flex-wrap justify-center gap-2 mt-4 text-sm text-gray-500">
+        <span class="bg-gray-100 px-3 py-1 rounded-full text-xs">🔍 Yucatán</span>
+        <span class="bg-gray-100 px-3 py-1 rounded-full text-xs">🏷️ artesanal</span>
+        <span class="bg-gray-100 px-3 py-1 rounded-full text-xs">🍫 alto cacao</span>
+        <span class="bg-gray-100 px-3 py-1 rounded-full text-xs">🌱 bean to bar</span>
+      </div>
+    </div>
+
+    <!-- Filtros adicionales (tipo, cacao, origen) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
+      <div>
+        <label class="block text-xs font-semibold text-[#292E70] mb-1 uppercase tracking-wide">Tipo</label>
+        <select id="tipoFilter" class="w-full p-2 border border-[#B6BBF0] rounded-lg bg-white text-gray-700 focus:ring-1 focus:ring-[#292E70]">
+          <option value="todos">Todos</option>
+          <option value="artesanal">Artesanal</option>
+          <option value="bean to bar">Bean to bar</option>
+          <option value="gourmet">Gourmet</option>
+          <option value="tableta">Tableta</option>
+          <option value="tradicional">Tradicional</option>
+          <option value="profesional">Profesional</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-[#292E70] mb-1 uppercase tracking-wide">Nivel de cacao</label>
+        <select id="cacaoFilter" class="w-full p-2 border border-[#B6BBF0] rounded-lg bg-white text-gray-700 focus:ring-1 focus:ring-[#292E70]">
+          <option value="todos">Todos</option>
+          <option value="alto">Alto</option>
+          <option value="medio-alto">Medio-alto</option>
+          <option value="medio">Medio</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-[#292E70] mb-1 uppercase tracking-wide">Origen</label>
+        <select id="origenFilter" class="w-full p-2 border border-[#B6BBF0] rounded-lg bg-white text-gray-700 focus:ring-1 focus:ring-[#292E70]">
+          <option value="todos">Todos</option>
+          <option value="Yucatán">Yucatán</option>
+          <option value="Chiapas">Chiapas</option>
+          <option value="Jalisco">Jalisco</option>
+          <option value="Michoacán">Michoacán</option>
+          <option value="CDMX">CDMX</option>
+          <option value="México">México</option>
+          <option value="Suiza">Suiza</option>
+          <option value="Bélgica">Bélgica</option>
+          <option value="Francia">Francia</option>
+          <option value="EE.UU.">EE.UU.</option>
+          <option value="Reino Unido">Reino Unido</option>
+          <option value="Alemania">Alemania</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Botones de aprendizaje máquina / interacción (simulando Python widgets) -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <button id="btnBuscarExacta" class="px-5 py-2.5 bg-[#292E70] text-white rounded-full text-sm font-medium shadow hover:bg-[#3D438F] transition flex items-center gap-2"><i class="fas fa-search"></i> Buscar Marca Exacta</button>
+      <button id="btnAbrirAvanzado" class="px-5 py-2.5 border border-[#292E70] text-[#292E70] rounded-full text-sm font-medium hover:bg-[#292E70] hover:text-white transition flex items-center gap-2"><i class="fas fa-sliders-h"></i> Abrir Buscador Avanzado</button>
+      <button id="btnRecomendador" class="px-5 py-2.5 bg-[#EFCD9D] text-[#292E70] rounded-full text-sm font-medium shadow hover:bg-[#e2bc86] transition flex items-center gap-2"><i class="fas fa-robot"></i> Recomendador</button>
+    </div>
+
+    <!-- Contador y resultados -->
+    <div id="resultCount" class="text-sm text-gray-500 mb-4 text-center"></div>
+    <div id="resultsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <!-- Los resultados se renderizan dinámicamente -->
+    </div>
+    <div id="emptyState" class="text-center py-12 hidden">
+      <i class="fas fa-search text-5xl text-[#B6BBF0] mb-3"></i>
+      <p class="text-gray-500">No se encontraron resultados. Prueba con otros términos.</p>
+      <p class="text-sm text-[#9C9A7D] mt-1">Ej: artesanal, Chiapas, alto, bean to bar</p>
+    </div>
+  </div>
+
+  <!-- Footer elegante talavera -->
+  <footer class="bg-[#292E70] text-white mt-16 py-8">
+    <div class="container mx-auto px-6 text-center text-sm text-[#D9D6C4]">
+      <p><i class="fas fa-chocolate-bar text-[#EFCD9D] mr-1"></i> Hecho con datos y cacao mexicano · Todos los derechos reservados 2026 · UNRC</p>
+      <p class="text-[10px] mt-2 opacity-70">Universidad Nacional Rosario Castellanos · Ciencia de Datos para Negocios</p>
+    </div>
+  </footer>
+
+  <script>
+    // ======================= BASE DE DATOS (exactamente del notebook) =======================
+    const marcasMexicanas = {
+      "kixocolatl": { "origen": "Yucatán", "tipo": "artesanal", "cacao": "alto", "descripcion": "Herencia maya, bean to bar" },
+      "feliu": { "origen": "Jalisco", "tipo": "gourmet", "cacao": "alto", "descripcion": "Uno de los mejores de México" },
+      "cuna de piedra": { "origen": "Chiapas", "tipo": "bean to bar", "cacao": "alto", "descripcion": "Cacao criollo mexicano" },
+      "moctezuma": { "origen": "Michoacán", "tipo": "artesanal", "cacao": "alto", "descripcion": "Muy bien valorado" },
+      "la rifa": { "origen": "CDMX", "tipo": "artesanal", "cacao": "medio-alto", "descripcion": "Calidad excepcional" },
+      "wolter": { "origen": "México", "tipo": "tradicional", "cacao": "medio", "descripcion": "Clásico mexicano" },
+      "picard": { "origen": "México", "tipo": "artesanal", "cacao": "medio-alto", "descripcion": "Buena variedad" },
+      "ibarra": { "origen": "México", "tipo": "tableta", "cacao": "medio", "descripcion": "Ideal para chocolate caliente" },
+      "sicao": { "origen": "México", "tipo": "profesional", "cacao": "alto", "descripcion": "Muy usado por chefs" }
+    };
+    
+    const marcasInternacionales = {
+      "lindt": { "origen": "Suiza", "fortaleza": "Suavidad y derretido" },
+      "godiva": { "origen": "Bélgica", "fortaleza": "Lujo y bombones" },
+      "valrhona": { "origen": "Francia", "fortaleza": "Gourmet profesional" },
+      "hershey": { "origen": "EE.UU.", "fortaleza": "Dulce y accesible" },
+      "cadbury": { "origen": "Reino Unido", "fortaleza": "Cremoso" },
+      "ritter sport": { "origen": "Alemania", "fortaleza": "Variedades divertidas" },
+      "abuelita": { "origen": "México (Nestlé)", "fortaleza": "Clásico para atole" }
+    };
+    
+    const todasMarcas = { ...marcasMexicanas, ...marcasInternacionales };
+    const marcasMexicanasKeys = Object.keys(marcasMexicanas);
+    
+    // Función de búsqueda unificada
+    function buscarMarcas(queryText, tipoFiltro, cacaoFiltro, origenFiltro) {
+      const texto = queryText.toLowerCase().trim();
+      let resultados = [];
+      
+      for (const [marca, info] of Object.entries(todasMarcas)) {
+        let coincide = true;
+        
+        // Búsqueda por texto en nombre, origen, tipo, descripción o fortaleza
+        if (texto !== "") {
+          const camposBusqueda = [
+            marca.toLowerCase(),
+            (info.origen || "").toLowerCase(),
+            (info.tipo || "").toLowerCase(),
+            (info.descripcion || "").toLowerCase(),
+            (info.fortaleza || "").toLowerCase()
+          ];
+          if (!camposBusqueda.some(campo => campo.includes(texto))) {
+            coincide = false;
+          }
+        }
+        
+        // Filtro tipo (solo para marcas mexicanas que tengan campo tipo)
+        if (tipoFiltro !== "todos" && info.tipo) {
+          if (info.tipo.toLowerCase() !== tipoFiltro.toLowerCase()) coincide = false;
+        }
+        
+        // Filtro cacao (solo marcas mexicanas)
+        if (cacaoFiltro !== "todos" && info.cacao) {
+          if (info.cacao.toLowerCase() !== cacaoFiltro.toLowerCase()) coincide = false;
+        }
+        
+        // Filtro origen
+        if (origenFiltro !== "todos" && info.origen) {
+          if (!info.origen.toLowerCase().includes(origenFiltro.toLowerCase())) coincide = false;
+        }
+        
+        if (coincide) {
+          resultados.push({ marca, info, esMexicana: marcasMexicanasKeys.includes(marca) });
+        }
+      }
+      return resultados;
+    }
+    
+    // Renderizar tarjetas
+    function renderResultados(resultados) {
+      const container = document.getElementById("resultsContainer");
+      const countDiv = document.getElementById("resultCount");
+      const emptyState = document.getElementById("emptyState");
+      
+      if (resultados.length === 0) {
+        container.innerHTML = "";
+        countDiv.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+      
+      emptyState.classList.add("hidden");
+      countDiv.innerHTML = `<span class="bg-[#EFCD9D]/30 px-3 py-1 rounded-full text-xs">${resultados.length} resultado${resultados.length !== 1 ? 's' : ''}</span>`;
+      
+      container.innerHTML = resultados.map(res => {
+        const { marca, info, esMexicana } = res;
+        const badgeClass = esMexicana ? "badge-mexicana" : "badge-internacional";
+        const badgeText = esMexicana ? "🇲🇽 Marca Mexicana" : "🌎 Internacional";
+        
+        // Mostrar campos específicos
+        let detalles = "";
+        if (esMexicana) {
+          detalles = `
+            <div class="mt-2 space-y-1 text-sm">
+              <div><span class="font-semibold text-[#292E70]">Tipo:</span> ${info.tipo || '—'}</div>
+              <div><span class="font-semibold text-[#292E70]">Cacao:</span> ${info.cacao || '—'}</div>
+              <div><span class="font-semibold text-[#292E70]">Descripción:</span> ${info.descripcion || 'Sin descripción'}</div>
+            </div>
+          `;
+        } else {
+          detalles = `
+            <div class="mt-2 text-sm">
+              <div><span class="font-semibold text-[#292E70]">Fortaleza:</span> ${info.fortaleza || 'Información no disponible'}</div>
+            </div>
+          `;
+        }
+        
+        return `
+          <div class="card-marca bg-white rounded-xl p-5 shadow-md border border-[#B6BBF0]/40 transition-all">
+            <div class="flex justify-between items-start">
+              <h3 class="text-xl font-bold text-[#292E70] font-serif-display capitalize">${marca}</h3>
+              <span class="text-[10px] ${badgeClass} px-2 py-1 rounded-full font-semibold">${badgeText}</span>
+            </div>
+            <div class="mt-2 text-gray-600"><i class="fas fa-map-marker-alt text-[#9C9A7D] mr-1"></i> Origen: ${info.origen || 'Desconocido'}</div>
+            ${detalles}
+          </div>
+        `;
+      }).join("");
+    }
+    
+    // Obtener valores de filtros
+    function getFilters() {
+      return {
+        tipo: document.getElementById("tipoFilter").value,
+        cacao: document.getElementById("cacaoFilter").value,
+        origen: document.getElementById("origenFilter").value,
+        texto: document.getElementById("searchInput").value
+      };
+    }
+    
+    function updateSearch() {
+      const { texto, tipo, cacao, origen } = getFilters();
+      const results = buscarMarcas(texto, tipo, cacao, origen);
+      renderResultados(results);
+    }
+    
+    // ========== Funcionalidades de botones (simulando aprendizaje máquina) ==========
+    function busquedaExactaMarca() {
+      const query = prompt("🔍 Buscar marca exacta (ej: kixocolatl, feliu, lindt):");
+      if (query && query.trim() !== "") {
+        const nombre = query.trim().toLowerCase();
+        if (todasMarcas[nombre]) {
+          const info = todasMarcas[nombre];
+          const esMex = marcasMexicanasKeys.includes(nombre);
+          let msg = `🍫 ${nombre.toUpperCase()}\nOrigen: ${info.origen}\n`;
+          if (esMex) {
+            msg += `Tipo: ${info.tipo} | Cacao: ${info.cacao}\nDescripción: ${info.descripcion}`;
+          } else {
+            msg += `Fortaleza: ${info.fortaleza}`;
+          }
+          alert(msg);
+        } else {
+          alert(`❌ Marca '${query}' no encontrada en el catálogo. Prueba: kixocolatl, feliu, lindt, etc.`);
+        }
+      }
+    }
+    
+    function abrirBuscadorAvanzado() {
+      // Simula la experiencia del buscador avanzado del notebook
+      alert("🔎 BUSCADOR AVANZADO (Estilo notebook Python)\n\nPuedes combinar filtros: tipo, cacao, origen y texto libre.\nLos resultados se actualizan automáticamente en tiempo real.\n\n💡 Consejo: Usa palabras como 'artesanal', 'Chiapas', 'alto' o 'bean to bar'.");
+      // Enfoque en el input de búsqueda para resaltar
+      document.getElementById("searchInput").focus();
+    }
+    
+    function recomendadorSimple() {
+      // Recomendador básico basado en popularidad o categoría (simulación ML)
+      const marcasDestacadas = ["kixocolatl", "feliu", "cuna de piedra", "moctezuma", "la rifa"];
+      const randomIdx = Math.floor(Math.random() * marcasDestacadas.length);
+      const reco = marcasDestacadas[randomIdx];
+      const info = todasMarcas[reco];
+      alert(`🤖 RECOMENDADOR DE CHOCOLATES MEXICANOS (Inteligencia artificial simple)\n\n✨ Te recomendamos: ${reco.toUpperCase()}\n📍 Origen: ${info.origen}\n🍫 Tipo: ${info.tipo} · Cacao: ${info.cacao}\n📖 ${info.descripcion}\n\nBasado en calidad y tradición mexicana.`);
+    }
+    
+    // Event Listeners
+    document.getElementById("searchInput").addEventListener("input", updateSearch);
+    document.getElementById("tipoFilter").addEventListener("change", updateSearch);
+    document.getElementById("cacaoFilter").addEventListener("change", updateSearch);
+    document.getElementById("origenFilter").addEventListener("change", updateSearch);
+    
+    document.getElementById("btnBuscarExacta").addEventListener("click", busquedaExactaMarca);
+    document.getElementById("btnAbrirAvanzado").addEventListener("click", abrirBuscadorAvanzado);
+    document.getElementById("btnRecomendador").addEventListener("click", recomendadorSimple);
+    
+    // Botón limpiar búsqueda (opcional UI)
+    const clearBtn = document.getElementById("clearSearch");
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", function() {
+      if (this.value.length > 0) {
+        clearBtn.classList.remove("hidden");
+      } else {
+        clearBtn.classList.add("hidden");
+      }
+    });
+    clearBtn.addEventListener("click", function() {
+      searchInput.value = "";
+      updateSearch();
+      clearBtn.classList.add("hidden");
+    });
+    
+    // Carga inicial
+    updateSearch();
+  </script>
+</body>
+</html>

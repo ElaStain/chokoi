@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CHOKOI · Cacao mexicano con datos · Inspiración Talavera</title>
+  <!-- Tailwind CSS + Font Awesome + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    /* Paleta Talavera:
+       #B6BBF0 (lavanda suave)
+       #9C9A7D (verde oliva / terroso)
+       #292E70 (azul profundo / noche)
+       #EFCD9D (beige cálido / canela)
+    */
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #FDF9F2;
+      scroll-behavior: smooth;
+    }
+    .font-serif-display {
+      font-family: 'Playfair Display', serif;
+    }
+    .bg-talavera-lavanda { background-color: #B6BBF0; }
+    .bg-talavera-terroso { background-color: #9C9A7D; }
+    .bg-talavera-profundo { background-color: #292E70; }
+    .bg-talavera-canela { background-color: #EFCD9D; }
+    .text-talavera-profundo { color: #292E70; }
+    .text-talavera-terroso { color: #9C9A7D; }
+    .text-talavera-canela { color: #EFCD9D; }
+    .border-talavera-lavanda { border-color: #B6BBF0; }
+    .gradient-talavera {
+      background: linear-gradient(135deg, #292E70 0%, #3D438F 50%, #5B61B0 100%);
+    }
+    .gradient-talavera-light {
+      background: linear-gradient(145deg, #FCF6EA 0%, #FEF5E3 100%);
+    }
+    .card-hover {
+      transition: all 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 28px -12px rgba(41, 46, 112, 0.18);
+    }
+    .btn-primary-talavera {
+      background-color: #292E70;
+      transition: all 0.2s;
+    }
+    .btn-primary-talavera:hover {
+      background-color: #3D438F;
+      transform: scale(0.98);
+      box-shadow: 0 8px 18px rgba(41,46,112,0.2);
+    }
+    .btn-outline-talavera {
+      border: 1px solid #292E70;
+      color: #292E70;
+      transition: all 0.2s;
+    }
+    .btn-outline-talavera:hover {
+      background-color: #292E70;
+      color: white;
+    }
+    .footer-link:hover {
+      color: #EFCD9D;
+    }
+    .badge-talavera {
+      background-color: #EFCD9D;
+      color: #292E70;
+    }
+  </style>
+</head>
+<body class="bg-gradient-talavera-light">
+
+  <!-- HERO principal con paleta talavera -->
+  <section class="relative overflow-hidden">
+    <!-- fondo con patron suave tipo talavera (círculos sutiles) -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#292E70 1.5px, transparent 1.5px); background-size: 32px 32px;"></div>
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Logo tipográfico con elegancia -->
+        <div class="mb-6 flex justify-center">
+          <span class="text-5xl md:text-7xl font-black tracking-tight text-talavera-profundo drop-shadow-sm font-serif-display">CHOKOI</span>
+        </div>
+        <div class="inline-block mb-3 px-4 py-1 rounded-full bg-[#EFCD9D]/20 backdrop-blur-sm border border-[#EFCD9D]/60">
+          <span class="text-[#292E70] text-sm font-semibold"><i class="fas fa-chocolate-bar mr-1"></i> Cacao mexicano · datos abiertos</span>
+        </div>
+        <p class="text-2xl md:text-3xl font-semibold text-[#292E70] mt-4 font-serif-display">Descubre el cacao mexicano.</p>
+        <p class="text-lg md:text-xl text-[#5B5A47] max-w-2xl mx-auto mt-5 leading-relaxed">Datos, tecnología y comunidad para explorar productores, marcas y oportunidades alrededor del cacao mexicano.</p>
+        <div class="mt-8 max-w-2xl mx-auto bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-[#B6BBF0]/50">
+          <p class="text-gray-800 text-base md:text-lg"><span class="font-bold text-[#292E70]">Chokoi</span> es un proyecto universitario de ciencia de datos que busca visibilizar el ecosistema del cacao mexicano mediante análisis, visualización y herramientas abiertas.</p>
+        </div>
+        <div class="mt-10">
+          <a href="#ecosistema" class="inline-flex items-center gap-3 btn-primary-talavera text-white font-semibold px-8 py-4 rounded-full text-lg shadow-lg transition-all duration-300">
+            Explora el ecosistema <i class="fas fa-arrow-right text-sm"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- decoración inferior talavera -->
+    <div class="absolute bottom-0 left-0 w-full h-3 bg-gradient-to-r from-[#B6BBF0] via-[#EFCD9D] to-[#9C9A7D]"></div>
+  </section>
+
+  <!-- QUIÉNES SOMOS (con acento talavera) -->
+  <section class="py-20 md:py-28 bg-white border-y border-[#B6BBF0]/30">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-block mb-4 px-5 py-1.5 bg-[#B6BBF0]/20 rounded-full text-[#292E70] text-sm font-semibold tracking-wide"><i class="fas fa-university mr-2"></i> Origen universitario</div>
+        <h2 class="text-3xl md:text-4xl font-bold text-[#292E70] mb-6 font-serif-display">QUIÉNES SOMOS</h2>
+        <div class="h-1 w-20 bg-[#9C9A7D] mx-auto mb-8 rounded-full"></div>
+        <p class="text-gray-700 text-lg leading-relaxed">
+          Chokoi nace en la licenciatura de <span class="font-semibold text-[#292E70]">Ciencia de Datos para Negocios</span> de la Universidad Nacional Rosario Castellanos.
+          <br><br>
+          El nombre está inspirado en el náhuatl <span class="italic font-medium text-[#9C9A7D]">xococ</span> (“amargo”), el proyecto conecta datos, emprendimiento y cultura para acercar el cacao mexicano a más personas.
+        </p>
+        <!-- Sello talavera -->
+        <div class="mt-8 flex justify-center gap-3 text-xs text-[#9C9A7D]">
+          <span class="bg-[#EFCD9D]/30 px-3 py-1 rounded-full"><i class="fas fa-chart-line mr-1"></i> ciencia de datos</span>
+          <span class="bg-[#EFCD9D]/30 px-3 py-1 rounded-full"><i class="fas fa-seedling mr-1"></i> impacto cultural</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSISTEMA CHOKOI - Tarjetas con paleta talavera -->
+  <section id="ecosistema" class="py-20 md:py-28 bg-[#FEF9F0]">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20">
+      <div class="text-center mb-14">
+        <span class="text-[#9C9A7D] font-semibold tracking-wider uppercase text-sm"><i class="fas fa-puzzle-piece mr-1"></i> Plataformas abiertas</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold mt-3 text-[#292E70] font-serif-display">ECOSISTEMA CHOKOI</h2>
+        <div class="w-24 h-1 bg-[#EFCD9D] mx-auto mt-5 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- 1: Mercado Justo -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#B6BBF0]/40 card-hover transition-all flex flex-col">
+          <div class="p-6 flex-1">
+            <div class="text-4xl mb-4"></div>
+            <h3 class="text-2xl font-bold text-[#292E70] mb-3">Mercado Justo</h3>
+            <p class="text-gray-600 mb-5 leading-relaxed">Análisis reproducible sobre precios, trazabilidad y mercado del cacao mexicano.</p>
+            <a href="#" class="inline-flex items-center gap-2 font-medium text-[#292E70] hover:text-[#5B61B0] border-b border-[#B6BBF0] pb-1 transition group">Ingresa <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition"></i></a>
+          </div>
+          <div class="h-1.5 w-full bg-gradient-to-r from-[#EFCD9D] to-[#B6BBF0]"></div>
+        </div>
+        
+        <!-- 2: Dashboard de Cacao -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#B6BBF0]/40 card-hover flex flex-col">
+          <div class="p-6 flex-1">
+            <div class="text-4xl mb-4"></div>
+            <h3 class="text-2xl font-bold text-[#292E70] mb-3">Dashboard de Cacao</h3>
+            <p class="text-gray-600 mb-5 leading-relaxed">Visualiza tendencias de producción, consumo y exportación.</p>
+            <a href="#" class="inline-flex items-center gap-2 font-medium text-[#292E70] hover:text-[#5B61B0] border-b border-[#B6BBF0] pb-1 transition">Descubre <i class="fas fa-chart-line ml-1"></i></a>
+          </div>
+          <div class="h-1.5 w-full bg-gradient-to-r from-[#EFCD9D] to-[#B6BBF0]"></div>
+        </div>
+        
+        <!-- 3: Emprende Cacao -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#B6BBF0]/40 card-hover flex flex-col">
+          <div class="p-6 flex-1">
+            <div class="text-4xl mb-4"></div>
+            <h3 class="text-2xl font-bold text-[#292E70] mb-3">Emprende Cacao</h3>
+            <p class="text-gray-600 mb-5 leading-relaxed">Herramientas y oportunidades para emprender con cacao mexicano.</p>
+            <a href="#" class="inline-flex items-center gap-2 font-medium text-[#292E70] hover:text-[#5B61B0] border-b border-[#B6BBF0] pb-1 transition">Encuentra oportunidades <i class="fas fa-briefcase ml-1"></i></a>
+          </div>
+          <div class="h-1.5 w-full bg-gradient-to-r from-[#EFCD9D] to-[#B6BBF0]"></div>
+        </div>
+
+        <!-- 4: Marcas Mexicanas -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#B6BBF0]/40 card-hover flex flex-col">
+          <div class="p-6 flex-1">
+            <div class="text-4xl mb-4"></div>
+            <h3 class="text-2xl font-bold text-[#292E70] mb-3">Marcas Mexicanas</h3>
+            <p class="text-gray-600 mb-5 leading-relaxed">Explora marcas relacionadas con cacao y chocolate nacional.</p>
+            <a href="#" class="inline-flex items-center gap-2 font-medium text-[#292E70] hover:text-[#5B61B0] border-b border-[#B6BBF0] pb-1 transition">Busca marcas <i class="fas fa-search ml-1"></i></a>
+          </div>
+          <div class="h-1.5 w-full bg-gradient-to-r from-[#EFCD9D] to-[#B6BBF0]"></div>
+        </div>
+
+        <!-- 5: Registro de Productores -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#B6BBF0]/40 card-hover flex flex-col md:col-span-2 lg:col-span-1">
+          <div class="p-6 flex-1">
+            <div class="text-4xl mb-4"></div>
+            <h3 class="text-2xl font-bold text-[#292E70] mb-3">Registro de Productores</h3>
+            <p class="text-gray-600 mb-5 leading-relaxed">Conecta productos e iniciativas con la comunidad Chokoi.</p>
+            <a href="#" class="inline-flex items-center gap-2 font-medium text-[#292E70] hover:text-[#5B61B0] border-b border-[#B6BBF0] pb-1 transition">Regístrate <i class="fas fa-user-plus ml-1"></i></a>
+          </div>
+          <div class="h-1.5 w-full bg-gradient-to-r from-[#EFCD9D] to-[#B6BBF0]"></div>
+        </div>
+        <div class="hidden lg:block"></div>
+      </div>
+
+      <!-- Texto adicional de comunidad -->
+      <div class="flex justify-center mt-14">
+        <div class="bg-white/80 shadow-sm rounded-full px-6 py-2.5 text-[#292E70] text-sm font-medium flex gap-3 items-center border border-[#EFCD9D]/50">
+          <i class="fas fa-chalkboard-user text-[#9C9A7D]"></i> Datos abiertos · Comunidad · Impacto en el cacao
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER con paleta talavera (azul profundo + acentos canela) -->
+  <footer class="bg-[#292E70] text-white pt-16 pb-8">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20">
+      <!-- grid footer -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#B6BBF0]/30">
+        
+        <!-- columna CHOKOI -->
+        <div>
+          <div class="flex items-center gap-2 mb-5">
+            <span class="text-3xl font-black tracking-tight font-serif-display text-[#EFCD9D]">CHOKOI</span>
+            <span class="bg-[#9C9A7D] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">UNRC</span>
+          </div>
+          <p class="text-[#D9D6C4] text-sm leading-relaxed">Ciencia de datos para el cacao mexicano. Datos, tecnología y comunidad inspirada en la talavera.</p>
+          <div class="flex gap-4 mt-5">
+            <a href="#" class="text-[#EFCD9D] hover:text-white transition text-xl"><i class="fab fa-github"></i></a>
+            <a href="#" class="text-[#EFCD9D] hover:text-white transition text-xl"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="text-[#EFCD9D] hover:text-white transition text-xl"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <!-- Navegación -->
+        <div>
+          <h4 class="font-bold text-lg mb-4 border-l-4 border-[#EFCD9D] pl-3">Navegación</h4>
+          <ul class="space-y-2 text-[#D9D6C4]">
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-home text-xs w-4"></i> Inicio</a></li>
+            <li><a href="#ecosistema" class="footer-link transition flex items-center gap-2"><i class="fas fa-leaf text-xs w-4"></i> Ecosistema</a></li>
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-chart-simple text-xs w-4"></i> Dashboard</a></li>
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-hand-holding-heart text-xs w-4"></i> Mercado Justo</a></li>
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-seedling text-xs w-4"></i> Emprende Cacao</a></li>
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-store text-xs w-4"></i> Marcas Mexicanas</a></li>
+          </ul>
+        </div>
+
+        <!-- Recursos -->
+        <div>
+          <h4 class="font-bold text-lg mb-4 border-l-4 border-[#EFCD9D] pl-3">Recursos</h4>
+          <ul class="space-y-2 text-[#D9D6C4]">
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-file-alt"></i> Notebook reproducible</a></li>
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-chart-pie"></i> Dashboard interactivo</a></li>
+            <li><a href="#" class="footer-link transition flex items-center gap-2"><i class="fas fa-clipboard-list"></i> Registro de productores</a></li>
+          </ul>
+        </div>
+
+        <!-- Frase final + derechos -->
+        <div class="bg-[#1E2360]/60 rounded-xl p-5 border border-[#B6BBF0]/30">
+          <i class="fas fa-quote-left text-[#EFCD9D] text-2xl mb-2 block"></i>
+          <p class="text-[#F3E9D2] italic text-sm leading-relaxed">"Hecho con datos y cacao mexicano."</p>
+          <div class="mt-4 pt-3 border-t border-[#B6BBF0]/30 text-xs text-[#CAC7B5]">
+            <i class="far fa-registered"></i> Todos los derechos reservados 2026. UNRC.
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[#CAC7B5] text-sm">
+        <div class="flex gap-1 items-center">
+          <i class="fas fa-chocolate-bar text-[#EFCD9D]"></i>
+          <span>Chokoi · Cacao mexicano, comunidad y datos abiertos · inspiración Talavera</span>
+        </div>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-[#EFCD9D] transition">Política de datos</a>
+          <a href="#" class="hover:text-[#EFCD9D] transition">Transparencia</a>
+          <a href="#" class="hover:text-[#EFCD9D] transition">Contacto</a>
+        </div>
+      </div>
+      <div class="text-center text-[#9C9A7D] text-[11px] mt-6">
+        Universidad Nacional Rosario Castellanos · Licenciatura en Ciencia de Datos para Negocios
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === "#" || href === "") return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    
+    // Simulación de acciones modales para los CTAs del ecosistema (demo)
+    const ctaEco = document.querySelectorAll('#ecosistema .inline-flex.items-center.gap-2');
+    ctaEco.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('🌿 Próximamente: este módulo del ecosistema Chokoi estará disponible. ¡Gracias por tu interés en el cacao mexicano!');
+      });
+    });
+    
+    // CTA principal del hero ya tiene scroll
+    const heroBtn = document.querySelector('.btn-primary-talavera');
+    if(heroBtn) {
+      heroBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const eco = document.getElementById('ecosistema');
+        if(eco) eco.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  </script>
+</body>
+</html>
